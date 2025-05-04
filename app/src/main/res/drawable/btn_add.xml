@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Vertical Line of the Plus (Inner, white color) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,8
+                         L24,40"
+        android:strokeWidth="6"
+        android:strokeColor="#FFFFFF" />
+
+    <!-- Horizontal Line of the Plus (Inner, white color) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,23
+                         L40,23"
+        android:strokeWidth="6"
+        android:strokeColor="#FFFFFF" />
+
+    <!-- Vertical Line of the Plus (Outer, shadow effect) -->
+    <path
+        android:fillColor="#000000"
+    android:pathData="M24,7
+    L24,41"
+    android:strokeWidth="8"
+    android:strokeColor="#FFFFFF" />
+
+    <!-- Horizontal Line of the Plus (Outer, shadow effect) -->
+    <path
+        android:fillColor="#B0BEC5"
+    android:pathData="M7,23
+    L41,23"
+    android:strokeWidth="8"
+    android:strokeColor="#FFFFFF" />
+</vector>
