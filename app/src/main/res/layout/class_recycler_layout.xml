@@ -15,7 +15,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="<ClassName>"
+        android:text="(ClassName)"
         android:textSize="18sp"
         android:textColor="@android:color/black"
         tools:ignore="HardcodedText" />

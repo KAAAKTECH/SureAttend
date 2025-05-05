@@ -10,12 +10,28 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_title_bar"
-        android:title="SureAttend"
-        android:titleTextColor="#50E411"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_hamburger"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:shadowColor="#000000"
+        android:shadowRadius="20"
+        android:text="SureAttend"
+        android:textColor="#FDFDFD"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -25,16 +41,16 @@
         android:padding="5dp"
         android:shadowColor="#000000"
         android:shadowRadius="10"
-        android:text="<UserName>"
+        android:text="(UserName)"
         android:textColor="#53FF03"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="HardcodedText" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewClasses"
         android:layout_width="400dp"
         android:layout_height="600dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +59,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
-        android:id="@+id/buttonAdd"
+        android:id="@+id/buttonAddClass"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
@@ -55,6 +71,6 @@
         android:src="@drawable/btn_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,RedundantDescriptionCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
