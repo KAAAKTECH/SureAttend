@@ -10,7 +10,10 @@ import com.kaak.sureattend.R
 import com.kaak.sureattend.dataclass.Class
 
 class ClassAdapter(
-    private var classesList: List<Class>
+    private var classesList: List<Class>,
+    private val onItemLongClick: (Class, Int) -> Unit,
+    private val onItemClick: (Class, Int) -> Unit,
+    private val isItemSelected: (Class) -> Boolean
 ) : RecyclerView.Adapter<ClassAdapter.ClassViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassViewHolder {
@@ -20,7 +23,24 @@ class ClassAdapter(
     }
 
     override fun onBindViewHolder(holder: ClassViewHolder, position: Int) {
-        holder.className.text = classesList[position].className
+        val currentClass = classesList[position]
+        holder.className.text = currentClass.className
+
+        // Visual selection indicator (you can customize this)
+        holder.itemView.isSelected = isItemSelected(currentClass)
+        holder.itemView.setBackgroundResource(
+            if (isItemSelected(currentClass)) R.drawable.bg_recycler_item_selected
+            else R.drawable.bg_recycler_item
+        )
+
+        holder.itemView.setOnClickListener {
+            onItemClick(currentClass, position)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick(currentClass, position)
+            true
+        }
     }
 
     override fun getItemCount(): Int = classesList.size
