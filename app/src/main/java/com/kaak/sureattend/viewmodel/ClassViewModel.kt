@@ -1,7 +1,6 @@
 package com.kaak.sureattend.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kaak.sureattend.dataclass.Class

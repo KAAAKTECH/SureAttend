@@ -241,30 +241,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        if (ev.action == MotionEvent.ACTION_DOWN &&
-            viewModel.selectedClasses.value?.isNotEmpty() == true) {
-
-            val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewClasses)
-
-            // Coordinates relative to RecyclerView
-            val rvCoords = IntArray(2)
-            recyclerView.getLocationOnScreen(rvCoords)
-            val x = ev.rawX.toInt() - rvCoords[0]
-            val y = ev.rawY.toInt() - rvCoords[1]
-
-            // Find the child view under the touch point
-            val childView = recyclerView.findChildViewUnder(x.toFloat(), y.toFloat())
-
-            // If no child view was touched, it's an empty area — clear selection
-            if (childView == null) {
-                viewModel.clearSelection()
-            }
-        }
-
-        return super.dispatchTouchEvent(ev)
-    }
-
-
-
 }
