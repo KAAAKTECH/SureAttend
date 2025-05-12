@@ -23,6 +23,7 @@ import com.kaak.sureattend.viewmodel.ClassViewModel
 import android.widget.TextView
 import android.view.View
 import android.graphics.Color
+import android.view.Gravity
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 
@@ -90,32 +91,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showNewClassDialog() {
+        // Inflate the layout for the dialog
         val dialogView = layoutInflater.inflate(R.layout.dialog_new_class, null)
+
+        // Find views in the dialog layout
         val editText = dialogView.findViewById<EditText>(R.id.editTextListName)
         val createButton = dialogView.findViewById<Button>(R.id.btn_create)
 
+        // Create the dialog
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
 
+        // Set dialog background to transparent
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        // Set the button click listener
         createButton.setOnClickListener {
             val className = editText.text.toString().trim()
+
+            // Check if class name is empty
             if (className.isNotEmpty()) {
+                // Create class using ViewModel
                 viewModel.createClass(className) { success ->
+                    // Show a success or failure message in a Toast
                     Toast.makeText(
                         this,
                         if (success) "Class created successfully!" else "Failed to create class",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                // Dismiss the dialog once the class is created
                 dialog.dismiss()
             } else {
+                // Show an error message if class name is empty
                 editText.error = "Class name cannot be empty"
             }
         }
 
+        // Show the dialog
         dialog.show()
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupNavMenu() {
@@ -139,7 +156,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showPopupMenu() {
-        navMenu = PopupMenu(this, toolbar).apply {
+        val anchor = findViewById<View>(R.id.navButtonAnchor)
+
+        navMenu = PopupMenu(this, anchor, Gravity.START).apply {
             menuInflater.inflate(R.menu.nav_menu, menu)
             setOnMenuItemClickListener { item: MenuItem ->
                 when (item.itemId) {
@@ -173,8 +192,13 @@ class MainActivity : AppCompatActivity() {
                     setImageResource(R.drawable.ic_delete)
                     setBackgroundColor(Color.TRANSPARENT)
                     setOnClickListener {
-                        // Trigger delete in ViewModel (to be implemented)
-                        Toast.makeText(this@MainActivity, "Delete clicked", Toast.LENGTH_SHORT).show()
+                        viewModel.deleteSelectedClasses { success ->
+                            Toast.makeText(
+                                this@MainActivity,
+                                if (success) "Deleted successfully" else "Failed to delete",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
 

@@ -25,6 +25,20 @@ class ClassViewModel : ViewModel() {
         classModel.createClass(className, onResult)
     }
 
+    fun deleteSelectedClasses(onResult: (Boolean) -> Unit) {
+        val selected = _selectedClasses.value ?: emptySet()
+        if (selected.isEmpty()) return
+
+        val classIDs = selected.map { it.classID }.toSet()
+        classModel.deleteClasses(classIDs) { success ->
+            if (success) {
+                _selectedClasses.postValue(emptySet())
+            }
+            onResult(success)
+        }
+    }
+
+
     fun toggleSelection(classItem: Class) {
         val currentSet = _selectedClasses.value ?: emptySet()
         _selectedClasses.value = if (currentSet.contains(classItem)) {

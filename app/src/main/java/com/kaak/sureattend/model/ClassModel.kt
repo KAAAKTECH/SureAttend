@@ -1,5 +1,6 @@
 package com.kaak.sureattend.model
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.kaak.sureattend.dataclass.Class
@@ -23,15 +24,42 @@ class ClassModel {
             .addOnFailureListener { onComplete(false) }
     }
 
-    fun listenToClasses(onUpdate: (List<Class>) -> Unit) {
-        listener?.remove() // Remove old listener
-        listener = classesCollection.addSnapshotListener { snapshot, _ ->
-            if (snapshot != null && !snapshot.isEmpty) {
-                val classList = snapshot.documents.mapNotNull { it.toObject(Class::class.java) }
-                onUpdate(classList)
+    fun deleteClasses(classIDs: Set<String>, onComplete: (Boolean) -> Unit) {
+        val batch = db.batch()
+        for (id in classIDs) {
+            if (id.isNotBlank()) {
+                batch.delete(classesCollection.document(id))
             }
         }
+
+        batch.commit()
+            .addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { onComplete(false) }
     }
+
+
+    fun listenToClasses(onUpdate: (List<Class>) -> Unit) {
+        listener?.remove()
+        listener = classesCollection.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                Log.e("Firestore", "Listen failed.", error)
+                return@addSnapshotListener
+            }
+
+            val classList = snapshot?.documents?.mapNotNull { doc ->
+                try {
+                    val classObj = doc.toObject(Class::class.java)
+                    classObj?.copy(classID = doc.id)
+                } catch (e: Exception) {
+                    Log.e("MappingError", "Invalid doc: ${doc.id}", e)
+                    null
+                }
+            } ?: emptyList()
+
+            onUpdate(classList)
+        }
+    }
+
 
     fun stopListening() {
         listener?.remove()
