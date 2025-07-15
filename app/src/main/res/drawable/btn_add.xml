@@ -26,7 +26,7 @@
         android:fillColor="#000000"
     android:pathData="M24,7
     L24,41"
-    android:strokeWidth="8"
+    android:strokeWidth="6"
     android:strokeColor="#FFFFFF" />
 
     <!-- Horizontal Line of the Plus (Outer, shadow effect) -->
@@ -34,6 +34,6 @@
         android:fillColor="#B0BEC5"
     android:pathData="M7,23
     L41,23"
-    android:strokeWidth="8"
+    android:strokeWidth="6"
     android:strokeColor="#FFFFFF" />
 </vector>

@@ -29,7 +29,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity() {
+class ClassActivity : AppCompatActivity() {
 
     private var navMenu: PopupMenu? = null
     private var isMenuVisible = false
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_class)
 
         toolbar = findViewById(R.id.toolbar)
         setupNavMenu()
@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                     setOnClickListener {
                         viewModel.deleteSelectedClasses { success ->
                             Toast.makeText(
-                                this@MainActivity,
+                                this@ClassActivity,
                                 if (success) "Deleted successfully" else "Failed to delete",
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -210,7 +210,7 @@ class MainActivity : AppCompatActivity() {
                     visibility = if (canEdit) View.VISIBLE else View.GONE
                     setOnClickListener {
                         // Trigger edit dialog in ViewModel (to be implemented)
-                        Toast.makeText(this@MainActivity, "Edit clicked", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ClassActivity, "Edit clicked", Toast.LENGTH_SHORT).show()
                     }
                 }
 
